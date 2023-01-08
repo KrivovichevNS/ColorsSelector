@@ -3,22 +3,22 @@ const cols = document.querySelectorAll('.col')
 // Смена цвета при нажатии пробела
 document.addEventListener('keydown', event => {
     event.preventDefault()
-    if(event.code.toLowerCase() === 'space') {
+    if (event.code.toLowerCase() === 'space') {
         setRandomColors()
     }
 })
 
-// Открыть/закрыть замочек 
+// Открыть/закрыть замочек + копирование кода цвета
 document.addEventListener('click', event => {
     const type = event.target.dataset.type
 
     if (type === 'lock') {
         const checkTarget = event.target.tagName.toLowerCase() === 'i'
-        ? event.target
-        : event.target.children[0]
+            ? event.target
+            : event.target.children[0]
 
-       checkTarget.classList.toggle('fa-lock-open') 
-       checkTarget.classList.toggle('fa-lock') 
+        checkTarget.classList.toggle('fa-lock-open')
+        checkTarget.classList.toggle('fa-lock')
     } else if (type === 'copy') {
         copyColorCode(event.target.textContent)
     }
@@ -36,20 +36,38 @@ const generateRandomColor = () => {
 }
 
 // 'Засеивание колонок рандомными цветами' + (если закрыт замочек, цвет не меняется)
-const setRandomColors = () => cols.forEach(col => {
-    const isLocked = col.querySelector('i').classList.contains('fa-lock')
-    const text = col.querySelector('h2')
-    const button = col.querySelector('button')
-    const color = chroma.random()
+const setRandomColors = (isInitial) => {
+    const colors = isInitial ? getColorsFromHash() : []
 
-    if (isLocked) return
+    cols.forEach((col, i) => {
+        const isLocked = col.querySelector('i').classList.contains('fa-lock')
+        const text = col.querySelector('h2')
+        const button = col.querySelector('button')
 
-    text.textContent = generateRandomColor()
-    col.style.background = color
+        if (isLocked) {
+            colors.push(text.textContent)
+            return
+        }
 
-    setTextColor(text, button, color)
-})
+        const color = isInitial
+            ? colors[i]
+                ? colors[I]
+                : chroma.random()
+            : chroma.random()
 
+        if (!isInitial) {
+            colors.push(color)
+        }
+
+        text.textContent = generateRandomColor()
+        col.style.background = color
+
+        setTextColor(text, button, color)
+    })
+    updateColorsHash(colors)
+}
+
+// Функция копирования текста
 const copyColorCode = (text) => {
     return navigator.clipboard.writeText(text)
 }
@@ -60,4 +78,19 @@ const setTextColor = (text, button, color) => {
     text.style.color = luminance > 0, 5 ? 'black' : 'white'
     button.style.color = luminance > 0, 5 ? 'black' : 'white'
 }
-setRandomColors()
+
+const updateColorsHash = (colors = []) => {
+    document.location.hash = colors.map(col => col.toString().substring(1)).join('-')
+}
+
+const getColorsFromHash = () => {
+    if (document.location.hash.length > 1) {
+        return document.location.hash
+            .substring(1)
+            .split('-')
+            .map(color => '#' + color)
+    }
+    return []
+}
+
+setRandomColors(true)
