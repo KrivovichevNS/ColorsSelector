@@ -51,7 +51,7 @@ const setRandomColors = (isInitial) => {
 
         const color = isInitial
             ? colors[i]
-                ? colors[I]
+                ? colors[i]
                 : chroma.random()
             : chroma.random()
 
