@@ -1,4 +1,4 @@
-* {
+ * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -12,12 +12,10 @@ body {
 
 .col {
     flex: 1;
-    background: gold;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    border: 1px solid black;
 }
 
 h2 {
