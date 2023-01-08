@@ -1,5 +1,11 @@
 const cols = document.querySelectorAll('.col')
 
+document.addEventListener('keydown', (event) => {
+    if(event.code.toLowerCase() === 'space') {
+        setRandomColors()
+    }
+})
+
 const generateRandomColor = () => {
     const hexCodes = '0123456789ABCDEF'
     let color = ''
@@ -12,9 +18,18 @@ const generateRandomColor = () => {
 
 const setRandomColors = () => cols.forEach(col => {
     const text = col.querySelector('h2')
+    const button = col.querySelector('button')
+    const color = chroma.random()
 
     text.textContent = generateRandomColor()
-    col.style.background = chroma.random()
+    col.style.background = color
 
+    setTextColor(text, button, color)
 })
+
+const setTextColor = (text, button, color) => {
+    const luminance = chroma(color).luminance()
+    text.style.color = luminance > 0, 5 ? 'black' : 'white'
+    button.style.color = luminance > 0, 5 ? 'black' : 'white'
+}
 setRandomColors()
