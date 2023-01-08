@@ -12,9 +12,9 @@ const generateRandomColor = () => {
 
 const setRandomColors = () => cols.forEach(col => {
     const text = col.querySelector('h2')
-    
+
     text.textContent = generateRandomColor()
-    col.style.background = generateRandomColor()
+    col.style.background = chroma.random()
 
 })
 setRandomColors()
