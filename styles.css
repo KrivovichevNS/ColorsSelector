@@ -1,0 +1,46 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    font-family: 'Yeon Sung', cursive;
+}
+
+.col {
+    flex: 1;
+    background: gold;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid black;
+}
+
+h2 {
+    padding: 10px;
+    border-radius: 10px;
+    transition: background 0.3s;
+}
+
+.col h2:hover {
+    background: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+.col button {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background: transparent;
+    font-size: 2rem;
+    transition: background 0.3s;
+}
+
+.col button:hover {
+    background: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
