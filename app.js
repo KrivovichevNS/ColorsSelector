@@ -1,9 +1,13 @@
 const cols = document.querySelectorAll('.col')
 
-document.addEventListener('keydown', (event) => {
+document.addEventListener('keydown', event => {
     if(event.code.toLowerCase() === 'space') {
         setRandomColors()
     }
+})
+
+document.addEventListener('click', event => {
+    
 })
 
 const generateRandomColor = () => {
