@@ -1,6 +1,7 @@
 const cols = document.querySelectorAll('.col')
 
 document.addEventListener('keydown', event => {
+    event.preventDefault()
     if(event.code.toLowerCase() === 'space') {
         setRandomColors()
     }
@@ -10,7 +11,13 @@ document.addEventListener('click', event => {
     const type = event.target.dataset.type
 
     if (type === 'lock') {
-        console.log('lock');
+        const checkTarget = event.target.tagName.toLowerCase() === 'i'
+        ? event.target
+        : event.target.children[0]
+
+       checkTarget.classList.toggle('fa-lock-open') 
+       checkTarget.classList.toggle('fa-lock') 
+
     }
 })
 
